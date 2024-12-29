@@ -46,10 +46,12 @@ Here is the final result which you can expect result.
 
 # Model Architecture
 
+<img width="584" alt="Screenshot 2024-12-29 at 5 28 35 PM" src="https://github.com/user-attachments/assets/95798a71-76d4-4025-b630-4ad441a31679" />
+
 
 The model architectures for the two neural networks used for the Actor and Critic are as follows:
 
-<img width="584" alt="Screenshot 2024-12-29 at 5 28 35 PM" src="https://github.com/user-attachments/assets/95798a71-76d4-4025-b630-4ad441a31679" />
+
 
 Actor:
 
