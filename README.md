@@ -1,40 +1,33 @@
 # Navigation
 This project is part of the Deep Reinforcement Learning Nanodegree Program, by Udacity.
-The goal in this project is to create and train an agent to navigate and collect bananas in a large, square world.
+
 
 
 # Understanding the environment
-This environment has been built using the Unity Machine Learning Agents Toolkit (ML-Agents), which is an open-source Unity plugin that enables games and simulations to serve as environments for training intelligent agents. You can read more about ML-Agents by perusing the GitHub repository.
+In this environment, a double-jointed arm can move to target locations. A reward of +0.1 is provided for each step that the agent's hand is in the goal location. Thus, the goal of your agent is to maintain its position at the target location for as many time steps as possible.
 
-The project environment provided by Udacity is similar to, but not identical to the Banana Collector environment on the Unity ML-Agents GitHub page.
 
-In this environment, an Agent navigates a large, square world collecting bananas. Each episode of this task is limited to 300 steps. A reward of +1 is provided for collecting a yellow banana, and a reward of -1 is provided for collecting a blue banana. Thus, the goal of the agent is to collect as many yellow bananas as possible, avoiding the blue ones.
 
 # State description
-The state-space has 37 dimensions and contains the agent's velocity, along with the ray-based perception of objects around the agent's forward direction. Given this information, the agent has to learn how to best select actions. Four discrete actions are available, corresponding to:
 
-0 - move forward
-1 - move backward
-2 - turn left
-3 - turn right
-Solving the environment
-To solve the environment, the Agent must obtain an average score of +13 over 100 consecutive episodes.
+The observation space consists of 33 variables corresponding to position, rotation, velocity, and angular velocities of the arm. Each action is a vector with four numbers, corresponding to torque applicable to two joints. Every entry in the action vector should be a number between -1 and 1.
 
-Getting the code
-You have two options to get the code contained in this repository:
+To solve the environment, the Agent must obtain an average score of +30 over 100 consecutive episodes.
 
-Option 1. Download it as a zip file
-Click here to download all the content of this repository as a zip file
-Uncompress the downloaded file into a folder of your choice
-Option 2. Clone this repository using Git version control system
-If you are not sure about having Git installed in your system, run the following command to verify that:
 
-$ git --version
-If you need to install it, follow this link to do so.
 
-Having Git installed in your system, you can clone this repository by running the following command:
+# Learning algorithm
+For this project, the Deep Deterministic Policy Gradient (DDPG) algorithm was used to train the agent.
 
-$ git clone https://github.com/silviomori/udacity-deep-reinforcement-learning-p1-navigation.git
+Deep Deterministic Policy Gradient (DDPG) is an algorithm which concurrently learns a Q-function and a policy. It uses off-policy data and the Bellman equation to learn the Q-function, and uses the Q-function to learn the policy.
+
+This approach is closely connected to Q-learning, and is motivated the same way.
+
+Some characteristics of DDPG:
+
+DDPG is an off-policy algorithm.
+DDPG can only be used for environments with continuous action spaces.
+DDPG can be thought of as being deep Q-learning for continuous action spaces.
 
 
 # Running the code
@@ -44,10 +37,45 @@ To successfully run the code, you need to ensure that the following files are in
 Download the depandicies from requirement.txt file.
 
 1. **Navigation.ipynb** - This is the primary notebook where the final implementation is done. Start running the code here.
-2. **AgentDQ.py** - This file contains all the necessary methods required for the code to function properly. Ensure it is imported into the notebook.
+2. **Model_1.py** - This file contains pytorch Model.
+3. **DDPG.py** - This has all the implementation object regarding the algorithm.
 
 Here is the final result which you can expect result.
 
-<img width="358" alt="image" src="https://github.com/user-attachments/assets/9449920a-7f29-4af8-8c23-6e9baba30934">
+
+
+# Model Architecture
+
+
+The model architectures for the two neural networks used for the Actor and Critic are as follows:
+
+<img width="584" alt="Screenshot 2024-12-29 at 5 28 35 PM" src="https://github.com/user-attachments/assets/95798a71-76d4-4025-b630-4ad441a31679" />
+
+Actor:
+
+Fully connected layer 1: Input 33 (state space), Output 128, RELU activation, Batch Normalization
+Fully connected layer 2: Input 128, Output 128, RELU activation
+Fully connected layer 3: Input 64, Output 4 (action space), TANH activation
+Critic:
+
+Fully connected layer 1: Input 33 (state space), Output 128, RELU activation, Batch Normalization
+Fully connected layer 2: Input 128, Output 128, RELU activation
+Fully connected layer 3: Input 64, Output 1
+
+# Hyperparameter
+
+BUFFER_SIZE = int(1e5)  # replay buffer size
+BATCH_SIZE = 128        # minibatch size
+GAMMA = 0.95            # discount factor
+TAU = 1e-2              # for soft update of target parameters
+LR_ACTOR = 1e-3         # learning rate of the actor 
+LR_CRITIC = 2e-4        # learning rate of the critic
+WEIGHT_DECAY = 0        # L2 weight decay
+
+
+
+
+
+
 
 
